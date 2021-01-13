@@ -1,0 +1,29 @@
+html, body { height: 100%; box-sizing: border-box; margin: 0; padding: 0;font-family: Roboto, "Helvetica Neue", sans-serif;}
+h1,h2,h6{margin: 0;}
+p{
+    margin: 0;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .mb-15{
+    margin-bottom: 15px;
+}
+@keyframes show {
+	0% {
+    opacity: 0;
+    transform: translateX(-80px);
+    
+	}
+	
+	 100% {
+     opacity: 1;
+    transform: translateX(0);
+    
+    
+	}
+}
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background-color: #2d46c9 !important;
+}

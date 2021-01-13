@@ -1,0 +1,12 @@
+<div
+  style="
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    height: calc(100vh - 82px);
+  "
+>
+  <div *ngFor="let member of members$ | async ">
+    <app-member-card [member]="member"></app-member-card>
+  </div>
+</div>

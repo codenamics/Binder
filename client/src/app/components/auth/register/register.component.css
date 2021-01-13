@@ -1,0 +1,30 @@
+form {
+  display: flex;
+  flex-direction: column;
+  animation: show 0.5s ease-in-out;
+}
+
+input,
+select,
+textarea {
+  padding: 18px 0 18px 25px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: rgb(240, 245, 248);
+  border: none;
+}
+input::placeholder {
+  color: rgb(25, 39, 64);
+}
+
+button {
+  width: 150px;
+  padding: 15px 0;
+  background-color: #ff6866;
+  box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
+}

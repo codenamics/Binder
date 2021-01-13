@@ -1,0 +1,63 @@
+<div class="member-card">
+  <div
+    class="card-img-wrapper"
+    style="background-image: url('{{member.photoUrl}}');width: 225px; height: 200px; background-repeat: no-repeat; background-position: center; background-size: cover; border-radius: 4px; box-shadow: 0 9px 27px 0 rgba(131,142,176,0.7);"
+  >
+    <ul class="member-icons animate">
+      <li>
+        <button
+          routerLink="/home/{{ member.username }}"
+          style="
+            background-color: #ff6866;
+            box-shadow: 0 10px 30px 0 rgb(0, 0, 0.6);
+          "
+        >
+          <i class="fa fa-user" style="font-size: 20px; color: white"></i>
+        </button>
+      </li>
+      <li style="margin: 0 20px">
+        <button
+          style="
+            background-color: #ff66b8;
+            box-shadow: 0 10px 30px 0 rgb(0, 0, 0.6);
+          "
+        >
+          <i style="font-size: 20px; color: white" class="fa fa-heart"></i>
+        </button>
+      </li>
+      <li>
+        <button
+          style="
+            background-color: #66ffb3;
+            box-shadow: 0 10px 30px 0 rgb(0, 0, 0.6);
+          "
+        >
+          <i class="fa fa-envelope" style="font-size: 20px; color: white"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div
+    class="card-body"
+    style="
+      height: 70px;
+      padding-left: 10px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    "
+  >
+    <h6 class="card-title" style="font-size: 17px; color: #2f2d61">
+      <i
+        class="fa fa-user"
+        style="font-size: 16px; margin-right: 5px; color: #2f2d61"
+      ></i>
+      {{ member.knownAs }}, 34
+    </h6>
+    <p class="card-text" style="color: #9594ae; font-size: 14px">
+      {{ member.city }}, {{ member.country }}
+    </p>
+  </div>
+</div>

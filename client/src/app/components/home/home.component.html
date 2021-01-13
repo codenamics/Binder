@@ -1,0 +1,24 @@
+<div class="app">
+  <div class="app-nav">
+    <div style="font-size: 40px; font-weight: 700; color: white">B.</div>
+
+    <ul>
+      <li routerLink="/home/binds" routerLinkActive='active'>Binds</li>
+      <li routerLink="/home/messages" routerLinkActive='active'>Messages</li>
+      <li routerLink="/home/likes" routerLinkActive='active'>Likes</li>
+      <li>Help</li>
+    </ul>
+    <i
+    routerLink='edit'
+      class="fa fa-cog"
+      style="position: fixed; bottom: 30px; font-size: 40px; color: white"
+    ></i>
+  </div>
+  <div class="app-main">
+    <div  style="display: flex; justify-content: flex-end; width: 100%; height: 45px;" *ngIf="accountService.currentUser$ | async as user">
+     Hello, <strong (click)="logout()">{{user.username}}</strong> !
+    </div>
+    <router-outlet></router-outlet>
+    <!-- <div style="width: 500px; height: 300px; background: white"></div> -->
+  </div>
+</div>

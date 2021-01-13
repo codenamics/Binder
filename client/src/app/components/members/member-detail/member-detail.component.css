@@ -1,0 +1,27 @@
+.grid{
+    
+    display: grid;
+    grid-template-columns: 0.3fr 0.7fr;
+    
+    background-color: white;
+    border-radius: 10px;
+  height: 85vh;
+  overflow: auto;
+}
+button {
+  width: 130px;
+  padding: 12px 0;
+  background-color: #ff6866;
+  box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+}
+.user{
+    border-right: 5px solid #e9f0f5;
+  padding: 20px;
+}
+.photos{
+   
+}

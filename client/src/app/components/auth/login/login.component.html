@@ -1,0 +1,29 @@
+<div>
+  <div class="head">Login</div>
+  <div class="sub-head">Login to find your dream bind</div>
+  <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+    <input
+      name="username"
+      [(ngModel)]="model.username"
+      type="text"
+      style="margin-bottom: 15px"
+      placeholder="Username"
+    />
+    <input
+      name="password"
+      [(ngModel)]="model.password"
+      type="password"
+      placeholder="Password"
+    />
+    <button style="margin-top: 30px" type="submit" >Login</button>
+  </form>
+  <div style="margin-top: 65px" class="animation">
+    Do not have an account?
+    <button
+    (click)="toogle()"
+      style="width: 100px; background-color: #ff6866; font-size: 16px; padding: 9px 0; margin-left: 20px"
+    >
+      Register
+    </button>
+  </div>
+</div>
