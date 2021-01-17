@@ -24,6 +24,7 @@ import { MemberDetailComponent } from './components/members/member-detail/member
 import { MemberEditComponent } from './components/members/member-edit/member-edit.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { PhotoEditorComponent } from './components/members/photo-editor/photo-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,16 @@
+.my-drop-zone { border: dotted 3px lightgray; }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
+input[type=file]{
+    color: transparent;
+}
+button:disabled{
+    background-color: #d3d3d349;
+    user-select: none;
+}
+.main-active{
+     background-color: #66ffb3;
+}
+.main-inactive{
+    background-color: #ff6866;
+}

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import {MatTabsModule} from '@angular/material/tabs';
+import { FileUploadModule } from 'ng2-file-upload';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [],
   imports: [
@@ -12,8 +15,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     }),
     NgxGalleryModule,
     MatTabsModule,
+    FileUploadModule,
+    MatProgressBarModule,
+    MatMenuModule
     
   ],
-  exports: [ToastrModule,NgxGalleryModule,MatTabsModule],
+  exports: [ToastrModule,MatMenuModule,NgxGalleryModule,MatTabsModule, FileUploadModule,MatProgressBarModule],
 })
 export class SharedModule {}

@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 .app-nav{
-    width: 200px;
+    width: 220px;
     background-color: #2d46c9;
     box-shadow: 0px 10px 30px 0px rgba(2, 60, 245, 0.7);
     display: flex;
@@ -18,10 +18,10 @@
 }
 .app-main{
     background-color: rgb(233, 240, 245);
-    height: calc(100vh - 45px);
+    
     width: 100%;
     
-    margin: 32px;
+    
 }
 ul{
     font-size: 22px;
