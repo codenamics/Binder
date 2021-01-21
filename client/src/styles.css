@@ -7,9 +7,7 @@ ul {
     list-style-type: none;
     padding: 0;
   }
-  .mb-15{
-    margin-bottom: 15px;
-}
+
 @keyframes show {
 	0% {
     opacity: 0;
