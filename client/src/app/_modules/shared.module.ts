@@ -6,6 +6,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
   declarations: [],
   imports: [
@@ -17,9 +20,13 @@ import {MatMenuModule} from '@angular/material/menu';
     MatTabsModule,
     FileUploadModule,
     MatProgressBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule
+    
     
   ],
-  exports: [ToastrModule,MatMenuModule,NgxGalleryModule,MatTabsModule, FileUploadModule,MatProgressBarModule],
+  exports: [MatFormFieldModule,MatNativeDateModule,MatDatepickerModule,ToastrModule,MatMenuModule,NgxGalleryModule,MatTabsModule, FileUploadModule,MatProgressBarModule],
 })
 export class SharedModule {}

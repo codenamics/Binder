@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class MemberEditComponent implements OnInit {
   }
   member: Member;
   user: User;
+  photoUrl: string;
   constructor(
     private accountService: AccountService,
     private memberService: MembersService,
@@ -30,16 +31,35 @@ export class MemberEditComponent implements OnInit {
   ) {
     this.accountService.currentUser$
       .pipe(take(1))
-      .subscribe((user) => (this.user = user));
+      .subscribe((user) => {this.user = user
+        
+      
+      });
   }
 
   ngOnInit(): void {
     this.loadMember();
   }
+  ngDoCheck(){
+    if(this.member?.photoUrl === this.member?.photoUrl){
+      if(this.member?.photoUrl === null){
+        this.photoUrl = './assets/user.png'
+      }else{
+        this.photoUrl = this.member?.photoUrl
+      }
+    }
+  }
   loadMember() {
     this.memberService
       .getMember(this.user.username)
-      .subscribe((member) => (this.member = member));
+      .subscribe((member) => {
+        this.member = member
+        if(member?.photoUrl === null){
+          this.photoUrl = './assets/user.png'
+        }else{
+          this.photoUrl = member.photoUrl
+        }
+      });
   }
   updateMember() {
     this.memberService.updateMember(this.member).subscribe(() => {

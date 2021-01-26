@@ -1,93 +1,91 @@
 <div style="width: 90%; margin: auto">
-  <h2 style="margin-bottom: 25px">Register</h2>
-  <form [formGroup]="registerForm" (ngSubmit)="register()">
-    <div style="margin-bottom: 15px">
+  <h2 style="margin-bottom: 20px">Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()">
+    <div style="margin-bottom: 10px">
       <label style="margin-right: 10px">I am a: </label>
-      <label> <input type="radio" value="male" /> Male </label>
       <label>
-        <input type="radio" value="female" class="ml-3" />
+        <input type="radio" value="male" formControlName="gender" /> Male
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="female"
+          formControlName="gender"
+          class="ml-3"
+        />
         Female
       </label>
     </div>
+    <app-text-input
+      [formControl]="registerForm.controls['username']"
+      [label]="'Username'"
+    ></app-text-input>
+    <app-text-input
+      [formControl]="registerForm.controls['knownAs']"
+      [label]="'Known as'"
+    ></app-text-input>
+    <div
+      style="
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+      "
+    >
+      <input
+        [max]="minDate"
+        [class.is-invalid]="
+          registerForm.get('dateOfBirth').errors &&
+          registerForm.get('dateOfBirth').touched
+        "
+        style="width: 80%"
+       
+        [matDatepicker]="picker"
+        [formControl]="registerForm.controls['dateOfBirth']"
+        placeholder="Date of birth"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <div
+        *ngIf="
+          registerForm.get('dateOfBirth').errors &&
+          registerForm.get('dateOfBirth').touched
+        "
+        class="error"
+      >
+        Please provide a DOB
+      </div>
+    </div>
 
-    <input
-      [class.is-invalid]="
-        registerForm.get('username').errors &&
-        registerForm.get('username').touched
-      "
-      type="text"
-      formControlName="username"
-      placeholder="Username"
-    />
-    <div
-      *ngIf="
-        registerForm.get('username').errors &&
-        registerForm.get('username').touched
-      "
-      style="color: tomato"
-    >
-      Please provide username
-    </div>
-    <input type="text" class="mb-15" placeholder="Known as" />
-    <input type="text" class="mb-15" placeholder="Date of birth" />
-    <input type="text" class="mb-15" placeholder="City" />
-    <input type="text" class="mb-15" placeholder="Country" />
-    <input
-      [class.is-invalid]="
-        registerForm.get('password').errors &&
-        registerForm.get('password').touched || registerForm.get('password').hasError('minlength') || registerForm.get('password').hasError('maxlength')
-      "
-      type="text"
-      formControlName="password"
-      placeholder="Password"
-    />
-    <div
-      *ngIf="
-        registerForm.get('password').hasError('required') &&
-        registerForm.get('password').touched
-      "
-      style="color: tomato"
-    >
-      Please enter a password
-    </div>
-    <div
-      *ngIf="registerForm.get('password').hasError('minlength')"
-      style="color: tomato"
-    >
-      Password must be at least 4 char
-    </div>
-    <div
-      *ngIf="registerForm.get('password').hasError('maxlength')"
-      style="color: tomato"
-    >
-      Password must be at most 8 char
-    </div>
-    <input
-      [class.is-invalid]="
-        registerForm.get('confirmPassword').errors &&
-        registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').hasError('notMatching')
-      "
-      formControlName="confirmPassword"
-      type="text"
-      placeholder="Confirm password"
-    />
-    <div
-      *ngIf="
-        registerForm.get('confirmPassword').hasError('required') &&
-        registerForm.get('confirmPassword').touched
-      "
-      style="color: tomato"
-    >
-      Please confirm password
-    </div>
-    <div
-      *ngIf="registerForm.get('confirmPassword').hasError('notMatching')"
-      style="color: tomato"
-    >
-      Passwords do not match
+    <app-text-input
+      [formControl]="registerForm.controls['city']"
+      [label]="'City'"
+    ></app-text-input>
+    <app-text-input
+      [formControl]="registerForm.controls['country']"
+      [label]="'country'"
+    ></app-text-input>
+    <app-text-input
+      [formControl]="registerForm.controls['password']"
+      [type]="'passowrd'"
+      [label]="'Password'"
+    ></app-text-input
+    ><app-text-input
+    [type]="'password'"
+      [formControl]="registerForm.controls['confirmPassword']"
+      [label]="'Confirm Password'"
+    ></app-text-input>
+    <div *ngIf="validationErrors.length > 0">
+      <ul>
+        <li *ngFor="let error of validationErrors">
+          {{error}}
+        </li>
+      </ul>
     </div>
     <div style="display: flex; justify-content: space-between">
-      <button type="submit">Register</button>
+    
+      <button [disabled]='!registerForm.valid' type="submit">Register</button>
       <button
         type="button"
         style="width: 100px; font-size: 16px; padding: 9px 0; margin-left: 20px"

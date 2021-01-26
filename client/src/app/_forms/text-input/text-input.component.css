@@ -1,0 +1,21 @@
+input{
+  padding: 18px 0 18px 25px;
+
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: rgb(240, 245, 248);
+  border: none;
+  margin-bottom: 15px;
+}
+input::placeholder {
+  color: rgb(25, 39, 64);
+}
+.is-invalid{
+  border: 2px solid tomato;
+  margin-bottom: 0 !important;
+}
+.error{
+    font-size: 12px;
+    color: tomato; 
+    margin: 2px 0;
+}

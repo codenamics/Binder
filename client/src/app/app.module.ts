@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MainComponent } from './components/main/main.component';
+
 import { CommonModule } from '@angular/common';
 
 import { AuthContainerComponent } from './components/auth/auth-container/auth-container.component';
@@ -25,12 +25,13 @@ import { MemberEditComponent } from './components/members/member-edit/member-edi
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './components/members/photo-editor/photo-editor.component';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MainComponent,
+
     HomeComponent,
     AuthContainerComponent,
     MemberGridComponent,
@@ -40,6 +41,7 @@ import { PhotoEditorComponent } from './components/members/photo-editor/photo-ed
     MemberDetailComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    TextInputComponent,
   ],
   imports: [
     BrowserModule,

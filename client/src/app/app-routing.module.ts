@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthContainerComponent } from './components/auth/auth-container/auth-container.component';
-import { MainComponent } from './components/main/main.component';
+
 import { RegisterComponent } from './components/auth/register/register.component';
 import { MemberGridComponent } from './components/members/member-grid/member-grid.component';
 import { MessagesComponent } from './components/messages/messages.component';

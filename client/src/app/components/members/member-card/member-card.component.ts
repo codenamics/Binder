@@ -10,14 +10,19 @@ export class MemberCardComponent implements OnInit {
   @Input() member: Member;
   photoUrl: string
 
-  constructor() { }
+
+  constructor() { 
+   
+  }
 
   ngOnInit(): void {
+   
     if(this.member.photoUrl === null){
       this.photoUrl = './assets/user.png'
     }else{
       this.photoUrl = this.member.photoUrl
     }
+   
   }
 
 }
