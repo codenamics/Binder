@@ -4,12 +4,24 @@
     flex-wrap: wrap;
     overflow: auto;
     align-content: flex-start;
-    height: calc(100vh - 140px);
-  
+    height: calc(100vh - 133px);
   "
 >
- 
-    <app-member-card class="member-card" *ngFor="let member of members$ | async " [member]="member"></app-member-card>
-  
+  <app-member-card
+    class="member-card"
+    *ngFor="let member of members"
+    [member]="member"
+  ></app-member-card>
 </div>
-<div style="height: 100px; background-color: #fff; width: 100%;">ddg</div>
+
+  <mat-paginator *ngIf="pagination"
+
+    [length]="pagination.totalItems"
+    [pageSize]="pageSize"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="pageChanged($event)"
+  >
+  </mat-paginator>
+

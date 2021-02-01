@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { Member } from 'src/app/_models/member';
+import { Pagination } from 'src/app/_models/pagination';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
@@ -9,11 +11,28 @@ import { MembersService } from 'src/app/_services/members.service';
   styleUrls: ['./member-grid.component.css'],
 })
 export class MemberGridComponent implements OnInit {
-  members$: Observable<Member[]>;
+  members: Member[];
+  pagination: Pagination;
+  pageNumber = 1;
+  pageSize = 20;
+  pageSizeOptions: number[] = [5, 10, 20,50];
+  pageEvent: PageEvent;
   constructor(private memberService: MembersService) {}
 
   ngOnInit(): void {
-   this.members$ = this.memberService.getMembers()
+    this.loadMembers();
   }
-  
+  loadMembers() {
+    this.memberService
+      .getMembers(this.pageNumber, this.pageSize)
+      .subscribe((response) => {
+        this.members = response.result;
+        this.pagination = response.pagination;
+      });
+  }
+  pageChanged(event: any){
+    this.pageNumber = event.pageIndex
+    this.pageSize = event.pageSize;
+    this.loadMembers();
+  }
 }

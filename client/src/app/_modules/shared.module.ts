@@ -9,6 +9,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
   declarations: [],
   imports: [
@@ -18,6 +19,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     }),
     NgxGalleryModule,
     MatTabsModule,
+    MatPaginatorModule,
     FileUploadModule,
     MatProgressBarModule,
     MatMenuModule,
@@ -27,6 +29,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     
     
   ],
-  exports: [MatFormFieldModule,MatNativeDateModule,MatDatepickerModule,ToastrModule,MatMenuModule,NgxGalleryModule,MatTabsModule, FileUploadModule,MatProgressBarModule],
+  exports: [MatPaginatorModule,MatFormFieldModule,MatNativeDateModule,MatDatepickerModule,ToastrModule,MatMenuModule,NgxGalleryModule,MatTabsModule, FileUploadModule,MatProgressBarModule],
 })
 export class SharedModule {}
