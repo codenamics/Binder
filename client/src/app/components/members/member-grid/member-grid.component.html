@@ -1,12 +1,34 @@
+
+<div>
+  <h2>Your matches - {{pagination?.totalItems}} found</h2> 
+</div>
+<div>
+  <form #form="ngForm" (ngSubmit)="loadMembers()">
+    <label for="">Age from:</label>
+    <input type="number" name="minAge" [(ngModel)]="userParams.minAge">
+    <label for="">Age to:</label>
+    <input type="number" name="maxAge" [(ngModel)]="userParams.maxAge">
+    <label for="">Show:</label>
+    <select name="gender"  [(ngModel)]="userParams.gender">
+      <option *ngFor="let gender of genderList" [value]="gender.value">
+        {{gender.display}}
+      </option>
+    </select>
+    <button type="submit">Apply filters</button>
+    <button (click)="resetFilter()">Reset filters</button>
+  </form>
+</div>
+
 <div
   style="
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
     align-content: flex-start;
-    height: calc(100vh - 133px);
+    height: calc(100vh - 195px);
   "
 >
+
   <app-member-card
     class="member-card"
     *ngFor="let member of members"
@@ -17,8 +39,8 @@
   <mat-paginator *ngIf="pagination"
 
     [length]="pagination.totalItems"
-    [pageSize]="pageSize"
-    [pageSize]="pageSize"
+    
+    [pageSize]="userParams.pageSize"
     [showFirstLastButtons]="true"
     [pageSizeOptions]="pageSizeOptions"
     (page)="pageChanged($event)"

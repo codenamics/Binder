@@ -23,3 +23,49 @@
     flex: 0 1 25%;
   }
 }
+
+
+
+/* form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 35px auto 20px auto;
+
+  animation: show 0.5s ease-in-out;
+} */
+input {
+  padding: 10px 0 10px 25px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: none;
+
+  outline: none;
+}
+
+input::placeholder {
+  color: rgb(25, 39, 64);
+}
+button {
+  
+  padding: 10px;
+  background-color: #ff6866;
+  box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+}
+.head {
+  font-size: 65px;
+  font-weight: 600;
+  color: #121f3e;
+  letter-spacing: 1.6px;
+}
+.sub-head {
+  font-size: 35px;
+  color: #b9b9b9;
+}
+
+

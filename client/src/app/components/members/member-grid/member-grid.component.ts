@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
+import { User } from 'src/app/_models/user';
+import { UserParams } from 'src/app/_models/userParams';
+import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
@@ -13,26 +17,37 @@ import { MembersService } from 'src/app/_services/members.service';
 export class MemberGridComponent implements OnInit {
   members: Member[];
   pagination: Pagination;
-  pageNumber = 1;
-  pageSize = 20;
-  pageSizeOptions: number[] = [5, 10, 20,50];
+  userParams: UserParams;
+  user: User;
+  pageSizeOptions: number[] = [5, 10, 20, 50];
   pageEvent: PageEvent;
-  constructor(private memberService: MembersService) {}
+  genderList = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}];
+  constructor(private memberService: MembersService, private accountService: AccountService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(
+      user => {
+        this.user = user;
+        this.userParams = new UserParams(user);
+      }
+    )
+  }
 
   ngOnInit(): void {
     this.loadMembers();
   }
   loadMembers() {
     this.memberService
-      .getMembers(this.pageNumber, this.pageSize)
+      .getMembers(this.userParams)
       .subscribe((response) => {
         this.members = response.result;
         this.pagination = response.pagination;
       });
   }
-  pageChanged(event: any){
-    this.pageNumber = event.pageIndex
-    this.pageSize = event.pageSize;
+  resetFilter(){
+    this.userParams = new UserParams(this.user);
+    this.loadMembers();
+  }  pageChanged(event: any){
+    this.userParams.pageNumber = event.pageIndex
+    this.userParams.pageSize = event.pageSize;
     this.loadMembers();
   }
 }
