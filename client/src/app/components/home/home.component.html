@@ -3,33 +3,55 @@
     <div style="font-size: 40px; font-weight: 700; color: white">B.</div>
 
     <ul>
-      <li routerLink="/home/binds" routerLinkActive='active'>Binds</li>
-      <li routerLink="/home/messages" routerLinkActive='active'>Messages</li>
-      <li routerLink="/home/likes" routerLinkActive='active'>Likes</li>
+      <li routerLink="/home/binds" routerLinkActive="active" style="padding-right: 30px;"><span>Binds</span> <span >{{currentCount$}}</span> </li>
+      <li routerLink="/home/messages" routerLinkActive="active">Messages</li>
+      <li routerLink="/home/likes" routerLinkActive="active">Likes</li>
       <li>Help</li>
     </ul>
     <i
-    routerLink='edit'
+      routerLink="edit"
       class="fa fa-cog"
       style="position: fixed; bottom: 30px; font-size: 40px; color: white"
     ></i>
   </div>
   <div class="app-main">
-    <div  style="box-shadow: 0 3px 7px 0 rgba(0,0,0,.05), 0 1px 0 0 rgba(0,0,0,.05); background-color: white; display: flex; justify-content: flex-end; align-items: center;  height: 75px; padding-right: 20px;" *ngIf="accountService.currentUser$ | async as user">
-   
-     <div [matMenuTriggerFor]="menu" style="display: flex;align-items: center; flex-direction: row;">
-      <img src="{{user.photoUrl || './assets/user.png'}}" alt="" style="height: 40px; width: 40px;border-radius: 50%; margin-right: 10px;">
-      <div >Hello, {{user.username}}</div>
- 
-<mat-menu #menu="matMenu">
-  <button mat-menu-item  routerLink='edit'>Edit profile</button>
-  <button mat-menu-item (click)="logout()">Log out</button>
-</mat-menu>
-</div>
-</div>
-    
-   
-    <router-outlet></router-outlet>
+    <div
+      style="
+        box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.05),
+          0 1px 0 0 rgba(0, 0, 0, 0.05);
+        background-color: white;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 75px;
+        padding-right: 20px;
+      "
+      *ngIf="accountService.currentUser$ | async as user"
+    >
+      <div
+        [matMenuTriggerFor]="menu"
+        style="display: flex; align-items: center; flex-direction: row"
+      >
+        <img
+          src="{{ user.photoUrl || './assets/user.png' }}"
+          alt=""
+          style="
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+          "
+        />
+        <div>Hello, {{ user.username }}</div>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="edit">Edit profile</button>
+          <button mat-menu-item (click)="logout()">Log out</button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <router-outlet (activate)="onActivate($event)" (deactivate)="onDeactivate()"></router-outlet>
 
     <!-- <div style="width: 500px; height: 300px; background: white"></div> -->
   </div>

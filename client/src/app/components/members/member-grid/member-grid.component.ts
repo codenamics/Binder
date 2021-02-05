@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { MembersService } from 'src/app/_services/members.service';
   styleUrls: ['./member-grid.component.css'],
 })
 export class MemberGridComponent implements OnInit {
+  @Output() itemCount: EventEmitter<number> = new EventEmitter<number>();
   members: Member[];
   pagination: Pagination;
   userParams: UserParams;
@@ -40,6 +41,7 @@ export class MemberGridComponent implements OnInit {
       .subscribe((response) => {
         this.members = response.result;
         this.pagination = response.pagination;
+        this.itemCount.emit(this.pagination.totalItems);
       });
   }
   resetFilter(){

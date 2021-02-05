@@ -30,9 +30,10 @@ ul{
    
 }
 li{
+    display: flex;
     padding: 15px 0 15px 30px;
     font-weight: 700;
-    
+   justify-content: space-between;
  outline: none;
 }
 .active{

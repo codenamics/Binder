@@ -9,7 +9,7 @@
     <label for="">Age to:</label>
     <input type="number" name="maxAge" [(ngModel)]="userParams.maxAge">
     <label for="">Show:</label>
-    <select name="gender"  [(ngModel)]="userParams.gender">
+    <select name="gender" style="width: 100px;"  [(ngModel)]="userParams.gender">
       <option *ngFor="let gender of genderList" [value]="gender.value">
         {{gender.display}}
       </option>
