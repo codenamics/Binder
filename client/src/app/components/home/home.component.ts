@@ -19,12 +19,11 @@ export class HomeComponent implements OnInit {
   constructor(public accountService: AccountService, private router: Router) {}
 
   ngOnInit() {
-    console.log(this.subscription)
   }
   onActivate(component) {
     if (component instanceof MemberGridComponent) {
-      this.subscription = component.itemCount.subscribe((c) => {
-        this.currentCount$ = c;
+      this.subscription = component.itemCount.subscribe((count) => {
+        this.currentCount$ = count;
       });
     }
   }

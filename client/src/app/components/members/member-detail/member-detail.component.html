@@ -15,11 +15,11 @@
             </div>
             <div style="margin-bottom: 10px;">
                 <strong>Last Active:</strong>
-                <p>{{member.lastActive}}</p>
+                <p>{{member.lastActive | timeago}}</p>
             </div>
             <div >
                 <strong>Member since:</strong>
-                <p>{{member.created}}</p>
+                <p>{{member.created | date}}</p>
             </div>
            <div class="footer">
             <div style="display: flex; justify-content: space-around; ">
