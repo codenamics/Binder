@@ -22,42 +22,40 @@ export class MemberGridComponent implements OnInit {
   user: User;
   pageSizeOptions: number[] = [5, 10, 20, 50];
   pageEvent: PageEvent;
-  lastActive = 'lastActive'
-  created = 'created'
+  lastActive = 'lastActive';
+  created = 'created';
   genderList = [
     { value: 'male', display: 'Males' },
     { value: 'female', display: 'Females' },
   ];
-  constructor(
-    private memberService: MembersService,
-    private accountService: AccountService
-  ) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe((user) => {
-      this.user = user;
-      this.userParams = new UserParams(user);
-    });
+  constructor(private memberService: MembersService) {
+    this.userParams = this.memberService.getUserParams();
   }
 
   ngOnInit(): void {
     this.loadMembers();
   }
   loadMembers(filters?: string) {
-    if(filters){
+    this.memberService.setUserParams(this.userParams);
+    if (filters) {
       this.userParams.orderBy = filters;
     }
     this.memberService.getMembers(this.userParams).subscribe((response) => {
       this.members = response.result;
       this.pagination = response.pagination;
+      console.log(this.pagination.totalItems);
       this.itemCount.emit(this.pagination.totalItems);
     });
   }
   resetFilter() {
-    this.userParams = new UserParams(this.user);
+    this.userParams = this.memberService.resetUserParams();
     this.loadMembers();
   }
   pageChanged(event: any) {
-    this.userParams.pageNumber = event.pageIndex;
+    this.userParams.pageNumber = event.pageIndex + 1;
+
     this.userParams.pageSize = event.pageSize;
+    this.memberService.setUserParams(this.userParams);
     this.loadMembers();
   }
 }

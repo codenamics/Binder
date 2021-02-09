@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/_models/user';
@@ -16,15 +16,19 @@ export class HomeComponent implements OnInit {
   currentCount$: Observable<number>;
   private subscription: Subscription;
 
-  constructor(public accountService: AccountService, private router: Router) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    public accountService: AccountService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   onActivate(component) {
     if (component instanceof MemberGridComponent) {
       this.subscription = component.itemCount.subscribe((count) => {
         this.currentCount$ = count;
       });
+      this.cdr.detectChanges();
     }
   }
   onDeactivate() {
