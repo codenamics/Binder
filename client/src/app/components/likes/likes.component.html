@@ -1,1 +1,35 @@
-<p>likes works!</p>
+
+<div>
+    <button type="button" (click)="loadLikes('liked')">
+        Members i like
+      </button>
+      <button type="button" (click)="loadLikes('likedBy')">
+        Who like me
+      </button>
+</div>
+<div
+
+  style="
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    align-content: flex-start;
+    height: calc(100vh - 195px);
+  "
+>
+  <app-member-card
+  
+    class="member-card"
+    *ngFor="let member of members"
+    [member]="member"
+  ></app-member-card>
+</div>
+<mat-paginator
+  *ngIf="pagination"
+  [length]="pagination.totalItems"
+  [pageSize]="pageSize"
+  [showFirstLastButtons]="true"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="pageChanged($event)"
+>
+</mat-paginator>

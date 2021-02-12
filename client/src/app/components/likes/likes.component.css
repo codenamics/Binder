@@ -1,0 +1,49 @@
+input,
+select {
+  padding: 10px;
+  width: 40px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: none;
+  text-align: center;
+  outline: none;
+}
+input::placeholder {
+  color: rgb(25, 39, 64);
+}
+button {
+  padding: 10px;
+  background-color: #ff6866;
+  box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+}
+
+@media (max-width: 576px) {
+  .member-card {
+    flex: 0 1 100%;
+  }
+}
+@media (min-width: 576px) {
+  .member-card {
+    flex: 0 1 100%;
+  }
+}
+@media (min-width: 768px) {
+  .member-card {
+    flex: 0 1 50%;
+  }
+}
+@media (min-width: 922px) {
+  .member-card {
+    flex: 0 1 33.3333%;
+  }
+}
+@media (min-width: 1200px) {
+  .member-card {
+    flex: 0 1 25%;
+  }
+}

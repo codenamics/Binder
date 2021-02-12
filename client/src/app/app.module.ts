@@ -54,7 +54,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
     SharedModule,
     NgxUiLoaderModule.forRoot({
       bgsOpacity: 1,
-      overlayColor: '#2d46c9',
+      overlayColor: '#2d47c944',
       fgsColor: '#ff6866',
       hasProgressBar: false,
       fgsSize: 110,
