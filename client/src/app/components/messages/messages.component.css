@@ -1,0 +1,28 @@
+.mat-table {
+    overflow-y: scroll !important;
+  }
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  button {
+    padding: 10px;
+    background-color: #ff6866;
+    box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+  }
+
+ .dupa {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 40px;
+  }
+  th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    padding-left: 24px;
+    width: 40%;
+}

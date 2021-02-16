@@ -1,1 +1,52 @@
-<p>messages works!</p>
+<div
+  style="
+    height: calc(100vh - 150px);
+    width: 100%;
+    overflow: auto;
+    margin-top: 20px;
+  "
+>
+  <div>
+    <table mat-table [dataSource]="messages">
+      <!-- Position Column -->
+      <ng-container matColumnDef="content">
+        <th mat-header-cell *matHeaderCellDef fxFlex="200">Content</th>
+        <td mat-cell *matCellDef="let element" fxFlex="200" class="dupa">
+            
+            {{ element.content }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef>From/To</th>
+        <td mat-cell *matCellDef="let element" style="display: flex; align-items: center;">
+            <img style="padding: 5px; height: 50px; width: 50px; border-radius: 50%;" src="{{element.recipientPhotoUrl}}">
+         {{ element.senderUsername }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="sent">
+        <th mat-header-cell *matHeaderCellDef>Sent/Received</th>
+        <td mat-cell *matCellDef="let element">{{ element.messageSent | date }}</td>
+      </ng-container>
+      <ng-container matColumnDef="button">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let element"><button>Delete</button></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+<div class="mat-elevation-z8">
+  <mat-paginator
+    *ngIf="pagination"
+    [length]="pagination.totalItems"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="pageChanged($event)"
+  >
+  </mat-paginator>
+</div>

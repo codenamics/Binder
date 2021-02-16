@@ -16,6 +16,9 @@ export class AppComponent {
   setCurrentUser() {
     const user: User = JSON.parse(localStorage.getItem('user'));
     console.log(user);
+    if(user){
+      this.router.navigateByUrl("home/binds")
+    }
     this.accountService.setCurrentUser(user);
   
   }
