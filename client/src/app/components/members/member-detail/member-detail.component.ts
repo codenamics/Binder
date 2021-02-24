@@ -1,5 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import {
   NgxGalleryAnimation,
@@ -15,8 +16,9 @@ import { MembersService } from 'src/app/_services/members.service';
   styleUrls: ['./member-detail.component.css'],
 })
 export class MemberDetailComponent implements OnInit {
+  @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
   member: Member;
-  photoUrl: string
+  photoUrl: string;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   constructor(
@@ -26,6 +28,9 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMember();
+    this.route.queryParams.subscribe(params =>{
+      params.tab ? this.activateMessages(params.tab) : this.activateMessages(0);
+    });
     this.galleryOptions = [
       {
         width: '500px',
@@ -60,5 +65,16 @@ export class MemberDetailComponent implements OnInit {
           this.photoUrl = this.member.photoUrl
         }
       });
+  }
+  activateMessages(tabIndex: number){
+    this.tabGroup.selectedIndex = tabIndex
+    
+  }
+  onTabChange(selectedTabIndex: number): void {
+    // this.router.navigate([], { relativeTo: this.route, queryParams: {
+    //   tab: selectedTabIndex
+    // }});
+    // this.selectedTabIndex = selectedTabIndex;
+    console.log(selectedTabIndex);
   }
 }

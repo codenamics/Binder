@@ -1,4 +1,5 @@
 <div
+
   style="
     height: calc(100vh - 150px);
     width: 100%;
@@ -7,35 +8,68 @@
   "
 >
   <div>
-    <table mat-table [dataSource]="messages">
+    <button type="button" (click)="toggleInbox('Unread')">Unread</button>
+    <button type="button" (click)="toggleInbox('Inbox')">Inbox</button>
+    <button type="button" (click)="toggleInbox('Outbox')">Outbox</button>
+  </div>
+  <div *ngIf="!loading">
+    <table mat-table [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container matColumnDef="content">
         <th mat-header-cell *matHeaderCellDef fxFlex="200">Content</th>
         <td mat-cell *matCellDef="let element" fxFlex="200" class="dupa">
-            
-            {{ element.content }}</td>
+          {{ element.content }}
+        </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="user">
         <th mat-header-cell *matHeaderCellDef>From/To</th>
-        <td mat-cell *matCellDef="let element" style="display: flex; align-items: center;">
-            <img style="padding: 5px; height: 50px; width: 50px; border-radius: 50%;" src="{{element.recipientPhotoUrl}}">
-         {{ element.senderUsername }}
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="display: flex; align-items: center"
+        >
+          <div *ngIf="container === 'Outbox'">
+            <img
+              class="img-circle"
+              src="{{ element.recipientPhotoUrl || './assets/user.png' }}"
+              alt="{{ element.recipientUsername }}"
+            />
+            <strong>{{ element.recipientUsername | titlecase }}</strong>
+          </div>
+          <div *ngIf="container !== 'Outbox'">
+            <img
+              class="img-circle"
+              src="{{ element.senderPhotoUrl || './assets/user.png' }}"
+              alt="{{ element.senderUsername }}"
+            />
+            <strong>{{ element.senderUsername | titlecase }}</strong>
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="sent">
         <th mat-header-cell *matHeaderCellDef>Sent/Received</th>
-        <td mat-cell *matCellDef="let element">{{ element.messageSent | date }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.messageSent | date }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="button">
         <th mat-header-cell *matHeaderCellDef>Delete</th>
-        <td mat-cell *matCellDef="let element"><button>Delete</button></td>
+        <td mat-cell *matCellDef="let element"><button (click)="$event.stopPropagation()" (click)="deleteMessage(element.id)">Delete</button></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
 
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        routerLink="{{
+          container === 'Outbox'
+            ? '/home/' + row.recipientUsername
+            : '/home/' + row.senderUsername
+        }}" [queryParams]='{tab:3}'
+      ></tr>
     </table>
   </div>
 </div>

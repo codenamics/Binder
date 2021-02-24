@@ -1,0 +1,61 @@
+.card {
+    border: none;
+}
+
+.chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li {
+min-height: 50px;
+    padding: 10px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.rounded-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.float-right{
+    float: right;
+}
+
+
+
+form {
+    display: flex;
+   
+    width: 100%;
+    margin: 35px auto 20px auto;
+  
+    animation: show 0.5s ease-in-out;
+  }
+  input {
+    padding: 20px 0 20px 25px;
+    font-size: 14px;
+
+    background-color: rgb(240, 245, 248);
+    border: none;
+    width: 100%;
+    outline: none;
+  }
+  
+  input::placeholder {
+    color: rgb(25, 39, 64);
+  }
+  button {
+    width: 150px;
+    padding: 16px 0;
+    background-color: #ff6866;
+    box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
+    border: none;
+ 
+    color: white;
+    font-size: 20px;
+  }
+ 
+  
+  

@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { TimeagoModule } from 'ngx-timeago';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,7 +30,8 @@ import { TimeagoModule } from 'ngx-timeago';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
   exports: [
     TimeagoModule,
@@ -43,7 +45,8 @@ import { TimeagoModule } from 'ngx-timeago';
     MatTabsModule,
     FileUploadModule,
     MatProgressBarModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
 })
 export class SharedModule {}

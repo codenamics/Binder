@@ -1,54 +1,84 @@
-<div class="grid" *ngIf="member">
-    <div class="user">
-        <div class="card-img-wrapper"
-         style="background-image: url('{{photoUrl}}');width: 100%; height: 350px; 
+<div class="grid">
+  <div class="user">
+    <div
+      class="card-img-wrapper"
+      style="background-image: url('{{photoUrl}}');width: 100%; height: 350px; 
         margin-bottom: 18px;
-        background-repeat: no-repeat; background-position: center; background-size: cover; border-radius: 4px; box-shadow: 0 9px 27px 0 rgba(131,142,176,0.7);"></div>
-        <div class="body" >
-            <div style="margin-bottom: 10px;">
-                <strong>Location:</strong>
-                <p>{{member.city}}, {{member.country}}</p>
-            </div>
-            <div style="margin-bottom: 10px;">
-                <strong>Age:</strong>
-                <p>{{member.age}}</p>
-            </div>
-            <div style="margin-bottom: 10px;">
-                <strong>Last Active:</strong>
-                <p>{{member.lastActive | timeago}}</p>
-            </div>
-            <div >
-                <strong>Member since:</strong>
-                <p>{{member.created | date}}</p>
-            </div>
-           <div class="footer">
-            <div style="display: flex; justify-content: space-around; ">
-                <button
-                style="margin-top: 30px; margin-right: 20px; background-color: #ff66b8; " type="submit" >Like</button>
-                <button style="margin-top: 30px; background-color: #66ffb3;" type="submit" >Message</button>
-            </div>
-           </div>
+        background-repeat: no-repeat; background-position: center; background-size: cover; border-radius: 4px; box-shadow: 0 9px 27px 0 rgba(131,142,176,0.7);"
+    ></div>
+    <div class="body">
+      <div style="margin-bottom: 10px">
+        <strong>Location:</strong>
+        <p>{{ member.city }}, {{ member.country }}</p>
+      </div>
+      <div style="margin-bottom: 10px">
+        <strong>Age:</strong>
+        <p>{{ member.age }}</p>
+      </div>
+      <div style="margin-bottom: 10px">
+        <strong>Last Active:</strong>
+        <p>{{ member.lastActive | timeago }}</p>
+      </div>
+      <div>
+        <strong>Member since:</strong>
+        <p>{{ member.created | date }}</p>
+      </div>
+      <div class="footer">
+        <div style="display: flex; justify-content: space-around">
+          <button
+            style="
+              margin-top: 30px;
+              margin-right: 20px;
+              background-color: #ff66b8;
+            "
+            type="submit"
+          >
+            Like
+          </button>
+          <button
+            style="margin-top: 30px; background-color: #66ffb3"
+            type="submit"
+            (click)="activateMessages(3)"
+          >
+            Message
+          </button>
         </div>
+      </div>
     </div>
-    <div class="photos" style="overflow: auto; width: 100%;">
-        <mat-tab-group mat-align-tabs="start">
-            
-            <mat-tab label='About {{member.knownAs}}' >
-                <div style="overflow: auto; height: 70vh;padding: 20px;">             
-                       <h4>Description</h4>
-                <p>{{member.introduction}}</p>
-                <h4>Looking for</h4>
-                <p>{{member.lookingFor}}</p>
-            </div>
-            </mat-tab>
-            <mat-tab label="Intersts">
-                <div style="overflow: auto; height: 70vh; padding: 20px;">   
-                <h4>Interests</h4>
-                <p>{{member.interests}}</p>
-                </div>
-            </mat-tab>
-            <mat-tab label="Photos"><ngx-gallery style="display: inline-block; margin-bottom: 20px;" [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery></mat-tab>
-            <mat-tab label="Messages">Content 3</mat-tab>
-          </mat-tab-group>
-    </div>
+  </div>
+  <div class="photos" style="overflow: hidden; width: 100%">
+    <mat-tab-group mat-align-tabs="start" #tabs (selectedIndexChange)="onTabChange($event)">
+      <mat-tab label="About {{ member.knownAs }}">
+        <div style="overflow: auto; height: 70vh; padding: 20px">
+          <h4>Description</h4>
+          <p>{{ member.introduction }}</p>
+          <h4>Looking for</h4>
+          <p>{{ member.lookingFor }}</p>
+        </div>
+      </mat-tab>
+      <mat-tab label="Intersts">
+        <div style="overflow: auto; height: 70vh; padding: 20px">
+          <h4>Interests</h4>
+          <p>{{ member.interests }}</p>
+        </div>
+      </mat-tab>
+      <mat-tab label="Photos">
+        <ng-template matTabContent>
+          <ngx-gallery
+            style="display: inline-block; margin-bottom: 20px"
+            [options]="galleryOptions"
+            [images]="galleryImages"
+            class="ngx-gallery"
+          ></ngx-gallery
+        ></ng-template>
+      </mat-tab>
+      <mat-tab label="Messages" style="overflow: hidden;">
+        <ng-template matTabContent>
+          <app-member-messages
+            [username]="member.username"
+          ></app-member-messages
+        ></ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

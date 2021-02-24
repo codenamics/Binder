@@ -23,9 +23,12 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map((user) => {
-        if (user && localStorage.getItem('user')) { return true; }
+        if (user && localStorage.getItem('user')) {
+      
+          return true; 
+        }
         this.toastr.error('You need to login');
-        this.router.navigateByUrl('/');
+
       })
     );
   }
