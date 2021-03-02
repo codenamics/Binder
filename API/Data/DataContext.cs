@@ -10,7 +10,7 @@ namespace API.Data
         public DataContext(DbContextOptions options) : base(options)
         {
         }
-      
+      public DataContext(){}
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
 

@@ -6,6 +6,7 @@
       <li routerLink="/home/binds" routerLinkActive="active" style="padding-right: 30px;"><span>Binds</span> <span >{{currentCount$}}</span> </li>
       <li routerLink="/home/messages" routerLinkActive="active">Messages</li>
       <li routerLink="/home/likes" routerLinkActive="active">Likes</li>
+      <li *appHasRole='["Admin", "Moderator"]' routerLink="/home/admin" routerLinkActive="active">Admin</li>
       <li>Help</li>
     </ul>
     <i

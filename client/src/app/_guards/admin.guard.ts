@@ -4,7 +4,6 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router,
 } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -14,20 +13,18 @@ import { AccountService } from '../_services/account.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(
     private accountService: AccountService,
-    private toastr: ToastrService,
-    private router: Router
+    private toastr: ToastrService
   ) {}
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map((user) => {
-        if (user && localStorage.getItem('user')) {
-          return true; 
+        if (user.roles.includes('Admin') || user.roles.includes('Moderator')) {
+          return true;
         }
-        this.toastr.error('You need to login');
-        this.router.navigateByUrl("/")
+        this.toastr.error('You cannot enter');
       })
     );
   }
