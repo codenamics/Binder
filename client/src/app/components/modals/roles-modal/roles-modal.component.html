@@ -1,0 +1,16 @@
+<div>
+    <form #rolesForm="ngForm" id="rolesForm">
+      <div *ngFor="let role of data.roles">
+        <mat-checkbox  type="checkbox"
+        
+       [checked]="role.checked"
+        [value]="role.name"
+        (change)="role.checked = !role.checked"
+        [disabled]="role.name ==='Admin' && data.user.username === 'Admin'"
+        >
+        {{role.name}}</mat-checkbox>
+      </div>
+    
+    </form>
+      <button [mat-dialog-close]="data.roles" cdkFocusInitial>Edit Roles</button>
+</div>

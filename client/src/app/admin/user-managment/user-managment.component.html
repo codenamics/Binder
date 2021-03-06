@@ -1,0 +1,6 @@
+<div *ngFor="let user of users" style="display: flex; padding: 20px; border: 1px solid #fafafa;">
+    <div>{{user.username}}</div>
+    <div>{{user.roles}}</div>
+    <button (click)="openDialog(user)">Edit Roles</button>
+
+</div>

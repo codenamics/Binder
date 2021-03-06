@@ -13,6 +13,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { TimeagoModule } from 'ngx-timeago';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [],
   imports: [
@@ -31,7 +33,8 @@ import {MatCardModule} from '@angular/material/card';
     MatNativeDateModule,
     MatFormFieldModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,MatCheckboxModule
   ],
   exports: [
     TimeagoModule,
@@ -46,7 +49,8 @@ import {MatCardModule} from '@angular/material/card';
     FileUploadModule,
     MatProgressBarModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,MatCheckboxModule
   ],
 })
 export class SharedModule {}
