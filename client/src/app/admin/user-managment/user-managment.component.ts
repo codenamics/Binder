@@ -1,5 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { RolesModalComponent } from 'src/app/components/modals/roles-modal/roles-modal.component';
 import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
@@ -10,34 +14,41 @@ export interface DialogData {
 @Component({
   selector: 'app-user-managment',
   templateUrl: './user-managment.component.html',
-  styleUrls: ['./user-managment.component.css']
+  styleUrls: ['./user-managment.component.css'],
 })
 export class UserManagmentComponent implements OnInit {
-users: Partial<User[]>
+  users: Partial<User[]>;
 
-  constructor(private adminService: AdminService, public dialog: MatDialog) { }
+  constructor(private adminService: AdminService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.getUsersWithRoles()
+    this.getUsersWithRoles();
   }
-  getUsersWithRoles(){
-    this.adminService.getUsersWithRoles().subscribe(users =>{
+  getUsersWithRoles() {
+    this.adminService.getUsersWithRoles().subscribe((users) => {
       this.users = users;
-    })
+    });
   }
-  openDialog(user): void {
+  openDialog(user: User): void {
     const dialogRef = this.dialog.open(RolesModalComponent, {
       width: '500px',
       height: '500px',
-      data: {user,
-      roles: this.getRolesArray(user)
-      }
+      data: { user, roles: this.getRolesArray(user) },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-      
-    
+    dialogRef.afterClosed().subscribe((result) => {
+      const rolesToUpdate = {
+        roles: [
+          ...result.filter((el) => el.checked === true).map((el) => el.name),
+        ],
+      };
+      if (rolesToUpdate) {
+        this.adminService
+          .updateUserRoles(user.username, rolesToUpdate.roles)
+          .subscribe(() => {
+            user.roles = [...rolesToUpdate.roles];
+          });
+      }
     });
   }
   private getRolesArray(user) {
@@ -67,5 +78,3 @@ users: Partial<User[]>
     return roles;
   }
 }
-
-
