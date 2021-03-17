@@ -23,6 +23,7 @@
     "@angular/router": "~11.0.5",
     "@fortawesome/angular-fontawesome": "^0.8.1",
     "@kolkov/ngx-gallery": "^1.2.3",
+    "@microsoft/signalr": "^5.0.4",
     "font-awesome": "^4.7.0",
     "ng2-file-upload": "^1.4.0",
     "ngx-spinner": "0.0.2",

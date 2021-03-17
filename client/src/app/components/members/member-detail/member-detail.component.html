@@ -7,6 +7,12 @@
         background-repeat: no-repeat; background-position: center; background-size: cover; border-radius: 4px; box-shadow: 0 9px 27px 0 rgba(131,142,176,0.7);"
     ></div>
     <div class="body">
+      <div *ngIf="(presence.onlineUsers$ | async).includes(member.username)">
+        <i
+        class="fa fa-user"
+        style="font-size: 16px; margin-right: 5px; color:lime"
+      ></i> Online now
+      </div>
       <div style="margin-bottom: 10px">
         <strong>Location:</strong>
         <p>{{ member.city }}, {{ member.country }}</p>

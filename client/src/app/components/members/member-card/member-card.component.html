@@ -52,10 +52,13 @@
     "
   >
     <h6 class="card-title" style="font-size: 17px; color: #2f2d61">
-      <i
+      <span [class.is-online]="(presence.onlineUsers$ | async).includes(member.username)">
+        <i
         class="fa fa-user"
-        style="font-size: 16px; margin-right: 5px; color: #2f2d61"
+        style="font-size: 16px; margin-right: 5px;"
       ></i>
+      </span>
+     
       {{ member.knownAs }}, {{ member.age }}
     </h6>
     <p class="card-text" style="color: #9594ae; font-size: 14px">

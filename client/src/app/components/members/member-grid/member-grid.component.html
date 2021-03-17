@@ -1,6 +1,7 @@
 
 <div>
   <form #form="ngForm" (ngSubmit)="loadMembers()">
+    <div>
     <label for="">Age from:</label>
     <input type="number" name="minAge" [(ngModel)]="userParams.minAge" />
     <label for="">Age to:</label>
@@ -11,6 +12,8 @@
         {{ gender.display }}
       </option>
     </select>
+  </div>
+    <div>
     <button type="submit">Apply filters</button>
     <button (click)="resetFilter()">Reset filters</button>
   
@@ -20,7 +23,7 @@
       <button type="button" (click)="loadMembers('created')">
         Newest Members
       </button>
-  
+    </div>
   </form>
 </div>
 

@@ -5,21 +5,20 @@ select {
   font-size: 14px;
   border-radius: 5px;
   background-color: #fff;
-  border: none;
   text-align: center;
-  outline: none;
 }
-input::placeholder {
-  color: rgb(25, 39, 64);
+form{
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
+
 button {
-  padding: 10px;
-  background-color: #ff6866;
-  box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
-  border: none;
-  border-radius: 5px;
-  color: white;
+ 
+  padding: 10px 0;
+  
   font-size: 14px;
+  box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
 }
 
 @media (max-width: 576px) {

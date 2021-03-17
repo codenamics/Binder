@@ -8,6 +8,35 @@ ul {
     list-style-type: none;
     padding: 0;
   }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    animation: show 0.5s ease-in-out;
+  }
+  input,
+select,
+textarea {
+  padding: 20px 0 20px 25px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: rgb(240, 245, 248);
+  border: none;
+  outline: none;
+}
+input::placeholder {
+    color: rgb(25, 39, 64);
+  }
+  button {
+    width: 150px;
+    padding: 16px 0;
+    background-color: #ff6866;
+    
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+  }
 
 @keyframes show {
 	0% {

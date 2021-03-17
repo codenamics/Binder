@@ -1,5 +1,5 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -9,26 +9,31 @@ import {
 } from '@kolkov/ngx-gallery';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
+import { MessageService } from 'src/app/_services/message.service';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css'],
 })
-export class MemberDetailComponent implements OnInit {
-  @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
+export class MemberDetailComponent implements OnInit, OnDestroy {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   member: Member;
   photoUrl: string;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   constructor(
     private memberService: MembersService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    public presence: PresenceService,
+    private messageService: MessageService
+  ) { }
+
 
   ngOnInit(): void {
     this.loadMember();
-    this.route.queryParams.subscribe(params =>{
+    this.route.queryParams.subscribe(params => {
       params.tab ? this.activateMessages(params.tab) : this.activateMessages(0);
     });
     this.galleryOptions = [
@@ -40,7 +45,7 @@ export class MemberDetailComponent implements OnInit {
         imageAnimation: NgxGalleryAnimation.Slide,
       },
     ];
-    
+
   }
   getImages(): NgxGalleryImage[] {
     const imageUrls = [];
@@ -59,22 +64,26 @@ export class MemberDetailComponent implements OnInit {
       .subscribe((member) => {
         this.member = member;
         this.galleryImages = this.getImages();
-        if(this.member.photoUrl === null){
+        if (this.member.photoUrl === null) {
           this.photoUrl = './assets/user.png'
-        }else{
+        } else {
           this.photoUrl = this.member.photoUrl
         }
       });
   }
-  activateMessages(tabIndex: number){
+  activateMessages(tabIndex: number) {
     this.tabGroup.selectedIndex = tabIndex
-    
+    console.log(tabIndex)
+
   }
   onTabChange(selectedTabIndex: number): void {
-    // this.router.navigate([], { relativeTo: this.route, queryParams: {
-    //   tab: selectedTabIndex
-    // }});
-    // this.selectedTabIndex = selectedTabIndex;
-    console.log(selectedTabIndex);
+    if (selectedTabIndex !== 3) {
+      this.messageService.stopHubConnection()
+      return;
+    }
+
+  }
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection()
   }
 }

@@ -9,17 +9,10 @@ select {
   text-align: center;
   outline: none;
 }
-input::placeholder {
-  color: rgb(25, 39, 64);
-}
+
 button {
   padding: 10px;
-  background-color: #ff6866;
   box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 14px;
 }
 
 @media (max-width: 576px) {

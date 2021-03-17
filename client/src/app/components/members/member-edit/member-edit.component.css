@@ -1,40 +1,28 @@
-.grid{
-    
-    display: grid;
-    grid-template-columns: 0.3fr 0.7fr;
-    
-    background-color: white;
-    border-radius: 10px;
-height: 85vh;
-overflow: auto;
-  
+.grid {
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  background-color: white;
+  border-radius: 10px;
+  height: 85vh;
+  overflow: auto;
 }
 button {
   width: 130px;
   padding: 12px 0;
   background-color: #66ffb3;
   box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 20px;
 }
-button:disabled{
+button:disabled {
   background-color: rgb(185, 185, 185);
 }
-.user{
-    border-right: 5px solid #e9f0f5;
+.user {
+  border-right: 5px solid #e9f0f5;
   padding: 20px;
-
-
 }
 
-input,textarea {
-    padding: 18px 0 18px 25px;
-    font-size: 14px;
-    border-radius: 5px;
-    background-color: rgb(240, 245, 248);
-    border: none;
-    width: 80%;
-    outline: none;
-  }
+input,
+textarea {
+  padding: 18px 0 18px 25px;
+  background-color: rgb(240, 245, 248);
+  width: 80%;
+}

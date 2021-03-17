@@ -2,6 +2,7 @@ using API.Data;
 using API.Helpers;
 using API.Interfaces;
 using API.Services;
+using API.SignalR;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,7 @@ namespace API.Extensions
            {
                opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
            });
+           services.AddSingleton<PresenceTracker>();
            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IPhotoService, PhotoService>();
