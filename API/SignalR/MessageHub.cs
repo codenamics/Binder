@@ -12,14 +12,18 @@ namespace API.SignalR
 {
     public class MessageHub : Hub
     {
-        private readonly IMessageRepository _messageRepository;
+
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
-        public MessageHub(IMessageRepository messageRepository, IMapper mapper, IUserRepository userRepository)
+        private readonly IUnitOfWork _unitOfWork;
+
+        private readonly IHubContext<PresenceHub> _presenceHub;
+        private readonly PresenceTracker _tracker;
+        public MessageHub(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<PresenceHub> presenceHub, PresenceTracker tracker)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
+            _tracker = tracker;
+            _presenceHub = presenceHub;
             _mapper = mapper;
-            _messageRepository = messageRepository;
         }
 
         public override async Task OnConnectedAsync()
@@ -28,15 +32,17 @@ namespace API.SignalR
             var otherUser = httpContext.Request.Query["user"].ToString();
             var groupeName = GetGroupName(Context.User.GetUsername(), otherUser);
             await Groups.AddToGroupAsync(Context.ConnectionId, groupeName);
-            await AddToGroup(Context, groupeName);
-            var messages = await _messageRepository.GetMessageThread(Context.User.GetUsername(), otherUser);
-
-            await Clients.Group(groupeName).SendAsync("ReceiveMessageThread", messages);
+            var group = await AddToGroup(groupeName);
+            await Clients.Group(groupeName).SendAsync("UpdateGroup", group);
+            var messages = await _unitOfWork.MessageRepository.GetMessageThread(Context.User.GetUsername(), otherUser);
+            if(_unitOfWork.HasChanges()) await _unitOfWork.Complete();
+            await Clients.Caller.SendAsync("ReceiveMessageThread", messages);
 
         }
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await RemoveFromMessageGroup(Context.ConnectionId);
+            var group = await RemoveFromMessageGroup();
+            await Clients.Group(group.Name).SendAsync("UpdateGroup", group);
             await base.OnDisconnectedAsync(exception);
         }
         public async Task SendMessage(CreateMessageDto createMessageDto)
@@ -45,8 +51,8 @@ namespace API.SignalR
 
             if (username == createMessageDto.RecipientUsername.ToLower())
                 throw new HubException("You send to yourself");
-            var sender = await _userRepository.GetUserByUsernameAsync(username);
-            var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+            var sender = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+            var recipient = await _unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
             if (recipient == null) throw new HubException("Not found user");
 
@@ -60,43 +66,60 @@ namespace API.SignalR
             };
             var groupeName = GetGroupName(sender.UserName, recipient.UserName);
 
-            var group = await _messageRepository.GetMessageGroup(groupeName);
-
+            var group = await _unitOfWork.MessageRepository.GetMessageGroup(groupeName);
 
             if (group.Connections.Any(x => x.Username == recipient.UserName))
             {
                 message.DateRead = DateTime.UtcNow;
             }
-            _messageRepository.AddMessage(message);
-            if (await _messageRepository.SaveAllAsync())
+            else
+            {
+                var connections = await _tracker.GetConnectionsForUser(recipient.UserName);
+                if (connections != null)
+                {
+                    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", new
+                    {
+                        username = sender.UserName,
+                        knowAs = sender.KnownAs
+                    });
+                }
+            }
+            _unitOfWork.MessageRepository.AddMessage(message);
+            if (await _unitOfWork.Complete())
             {
 
                 await Clients.Group(groupeName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
 
             }
 
-
         }
-        private async Task<bool> AddToGroup(HubCallerContext context, string groupName)
+        private async Task<Group> AddToGroup(string groupName)
         {
-            var group = await _messageRepository.GetMessageGroup(groupName);
+            var group = await _unitOfWork.MessageRepository.GetMessageGroup(groupName);
             var connection = new Connection(Context.ConnectionId, Context.User.GetUsername());
 
             if (group == null)
             {
                 group = new Group(groupName);
-                _messageRepository.AddGroup(group);
+                _unitOfWork.MessageRepository.AddGroup(group);
             }
             group.Connections.Add(connection);
-            return await _messageRepository.SaveAllAsync();
+            if (await _unitOfWork.Complete())
+            {
+                return group;
+            }
+            throw new HubException("Failed to join group");
         }
 
-        private async Task RemoveFromMessageGroup(string connectionId)
+        private async Task<Group> RemoveFromMessageGroup()
         {
-            var connection = await _messageRepository.GetConnection(connectionId);
-            _messageRepository.RemoveConnection(connection);
+            var group = await _unitOfWork.MessageRepository.GetGroupForCOnnection(Context.ConnectionId);
+            var connection = group.Connections.FirstOrDefault(c => c.ConnectionId == Context.ConnectionId);
+            _unitOfWork.MessageRepository.RemoveConnection(connection);
 
-            await _messageRepository.SaveAllAsync();
+            if (await _unitOfWork.Complete()) return group;
+
+            throw new HubException("Failed to remove from group");
 
         }
         private string GetGroupName(string caller, string other)

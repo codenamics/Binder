@@ -1,7 +1,7 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   NgxGalleryAnimation,
   NgxGalleryImage,
@@ -27,13 +27,17 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     private memberService: MembersService,
     private route: ActivatedRoute,
     public presence: PresenceService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private router: Router
+  ) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false
+  }
 
 
   ngOnInit(): void {
     this.loadMember();
     this.route.queryParams.subscribe(params => {
+    
       params.tab ? this.activateMessages(params.tab) : this.activateMessages(0);
     });
     this.galleryOptions = [

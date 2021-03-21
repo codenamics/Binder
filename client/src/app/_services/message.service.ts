@@ -1,3 +1,4 @@
+import { group } from '@angular/animations';
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,6 +7,7 @@ import { env } from 'process';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Group } from '../_models/group';
 import { Message } from '../_models/message';
 import { User } from '../_models/user';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
@@ -39,6 +41,20 @@ export class MessageService {
       this.messageThread$.pipe(take(1)).subscribe(messages =>{
         this.messageThreadSource.next([...messages, message])
       })
+    })
+    this.hubConnection.on("UpdateGroup", (group: Group)=>{
+      if(group.connections.some(x => x.username === otherUsername))
+      {
+        this.messageThread$.pipe(take(1)).subscribe(messages =>{
+          messages.forEach(message =>{
+           if(!message.dateRead)
+           {
+             message.dateRead = new Date(Date.now())
+           }
+          })
+          this.messageThreadSource.next([...messages])
+        })
+      }
     })
   }
 
