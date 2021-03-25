@@ -13,7 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { TimeagoModule } from 'ngx-timeago';
 import {MatCardModule} from '@angular/material/card';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [],
@@ -34,7 +34,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatFormFieldModule,
     MatTableModule,
     MatCardModule,
-    MatDialogModule,MatCheckboxModule
+    MatDialogModule,MatCheckboxModule,
+
   ],
   exports: [
     TimeagoModule,

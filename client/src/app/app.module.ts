@@ -32,6 +32,8 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserManagmentComponent } from './admin/user-managment/user-managment.component';
 import { PhotoManagmentComponent } from './admin/photo-managment/photo-managment.component';
 import { RolesModalComponent } from './components/modals/roles-modal/roles-modal.component';
+import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
+import { ScrollBottomDirective } from './_directives/scroll-bottom.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +56,8 @@ import { RolesModalComponent } from './components/modals/roles-modal/roles-modal
     UserManagmentComponent,
     PhotoManagmentComponent,
     RolesModalComponent,
+    ConfirmModalComponent,
+    ScrollBottomDirective,
   ],
   imports: [
     BrowserModule,

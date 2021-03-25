@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/_models/member';
+import { ConfirmService } from 'src/app/_services/confirm.service';
 import { MembersService } from 'src/app/_services/members.service';
 import { PresenceService } from 'src/app/_services/presence.service';
 
@@ -14,7 +15,7 @@ export class MemberCardComponent implements OnInit {
   photoUrl: string;
 
   constructor(private memberService: MembersService, private toastr: ToastrService,
-    public presence: PresenceService) {}
+    public presence: PresenceService, private confirmService: ConfirmService) {}
 
   ngOnInit(): void {
     if (this.member.photoUrl === null) {
@@ -24,8 +25,9 @@ export class MemberCardComponent implements OnInit {
     }
   }
   addLike(member: Member){
-    this.memberService.addLike(member.username).subscribe(()=>{
-      this.toastr.success('You have liked' + member.knownAs)
-    })
+    this.confirmService.confrim();
+    // this.memberService.addLike(member.username).subscribe(()=>{
+    //   this.toastr.success('You have liked' + member.knownAs)
+    // })
   }
 }
