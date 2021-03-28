@@ -28,6 +28,7 @@ export class MemberMessagesComponent implements OnInit {
   messages: Message[];
   messageContent: string;
   user: User;
+  loading = false
 
   constructor(
     public messageService: MessageService,
@@ -49,10 +50,11 @@ export class MemberMessagesComponent implements OnInit {
     this.messageService.createHubConnection(this.user, this.username);
   }
   sendMessage() {
+    this.loading = true;
     this.messageService
       .sendMessage(this.username, this.messageContent)
       .then(() => {
         this.messageForm.reset();
-      });
+      }).finally(() => this.loading = false)
   }
 }
