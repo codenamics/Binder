@@ -1,5 +1,5 @@
 
-<div>
+<div style="padding: 10px; background-color: white; border: 1px solid #e0e0e0;">
   <form #form="ngForm" (ngSubmit)="loadMembers()">
     <div>
     <label for="">Age from:</label>
@@ -12,10 +12,11 @@
         {{ gender.display }}
       </option>
     </select>
+    <button type="submit" style="margin-left: 25px;">Apply filters</button>
+    <button (click)="resetFilter()">Reset filters</button>
   </div>
     <div>
-    <button type="submit">Apply filters</button>
-    <button (click)="resetFilter()">Reset filters</button>
+    
   
       <button type="button" (click)="loadMembers('lastActive')">
         Last Active
@@ -41,14 +42,16 @@
     *ngFor="let member of members"
     [member]="member"
   ></app-member-card>
+
 </div>
 
+
 <mat-paginator
-  *ngIf="pagination"
-  [length]="pagination.totalItems"
-  [pageSize]="userParams.pageSize"
-  [showFirstLastButtons]="true"
-  [pageSizeOptions]="pageSizeOptions"
-  (page)="pageChanged($event)"
+*ngIf="pagination"
+[length]="pagination.totalItems"
+[pageSize]="userParams.pageSize"
+[showFirstLastButtons]="true"
+[pageSizeOptions]="pageSizeOptions"
+(page)="pageChanged($event)"
 >
 </mat-paginator>

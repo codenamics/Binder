@@ -50,11 +50,13 @@ namespace API.Controllers
         }
 
         [HttpGet("{username}", Name = "GetUser")]
-        public async Task<ActionResult<MemberDto>> GetUser(string username)
-        {
-            return await _unitOfWork.UserRepository.GetMemberAsync(username);
-
-        }
+             public async Task<ActionResult<MemberDto>> GetUser(string username)
+             {
+                 var currentUsername = User.GetUsername();
+                 return await _unitOfWork.UserRepository.GetMemberAsync(username,
+                     isCurrentUser: currentUsername == username
+                 );
+}
 
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
@@ -72,34 +74,25 @@ namespace API.Controllers
         }
 
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
-        {
-
-            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
-
-            var result = await _photoService.AddPhotoAsync(file);
-            if (result.Error != null) return BadRequest(result.Error.Message);
-
-            var photo = new Photo
-            {
-                Url = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId
-
-            };
-            if (user.Photos.Count == 0)
-            {
-                photo.IsMain = true;
-            }
-            user.Photos.Add(photo);
-            if (await _unitOfWork.Complete())
-            {
-
-                // return 
-                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
-
-            }
-            return BadRequest("Error adding photo");
-        }
+              public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+              {
+                  var user = await
+      _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+                  var result = await _photoService.AddPhotoAsync(file);
+                  if (result.Error != null) return BadRequest(result.Error.Message);
+                  var photo = new Photo
+                  {
+                      Url = result.SecureUrl.AbsoluteUri,
+                      PublicId = result.PublicId
+                  };
+                  user.Photos.Add(photo);
+                  if (await _unitOfWork.Complete())
+                  {
+                      return CreatedAtRoute("GetUser", new { username =
+      user.UserName }, _mapper.Map<PhotoDto>(photo));
+}
+                  return BadRequest("Problem addding photo");
+              }
 
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
@@ -121,7 +114,9 @@ namespace API.Controllers
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
-            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+            var user = await _unitOfWork.UserRepository.GetUserByPhotoId(photoId);
+            if(user == null) return BadRequest("Photo was rejected, refresh browser");
+            if (user.UserName != User.GetUsername()) return Unauthorized("You cannot delete this photo");
 
             var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
 

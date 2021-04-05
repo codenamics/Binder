@@ -14,3 +14,13 @@ button:disabled{
 .main-inactive{
     background-color: #ff6866;
 }
+.not-approved {
+    opacity: 0.2;
+}
+.img-wrapper {
+    position: relative
+}
+.img-text {
+    position: absolute;
+    bottom: 30%;
+}

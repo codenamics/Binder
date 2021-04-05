@@ -1,5 +1,6 @@
 .grid {
   display: grid;
+  margin: 20px;
   grid-template-columns: 0.3fr 0.7fr;
   background-color: white;
   border-radius: 10px;

@@ -14,9 +14,9 @@ form{
 }
 
 button {
- 
-  padding: 10px 0;
-  
+ width: initial;
+  padding: 12px 8px;
+  margin: 0 5px;
   font-size: 14px;
   box-shadow: 0 7px 23px 0 rgba(132, 134, 218, 0.36);
 }
