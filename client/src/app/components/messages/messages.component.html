@@ -1,16 +1,16 @@
 <div
 
   style="
-    height: calc(100vh - 150px);
+    height: calc(100vh - 140px);
     width: 100%;
     overflow: auto;
-    margin-top: 20px;
+    margin-top: 10px;
   "
 >
-  <div>
-    <button type="button" (click)="toggleInbox('Unread')">Unread</button>
-    <button type="button" (click)="toggleInbox('Inbox')">Inbox</button>
-    <button type="button" (click)="toggleInbox('Outbox')">Outbox</button>
+  <div style="margin:0 0 10px 10px;">
+    <button type="button" style="width:120px" (click)="toggleInbox('Unread')">Unread</button>
+    <button type="button" style="margin: 0 10px; width:120px" (click)="toggleInbox('Inbox')">Inbox</button>
+    <button type="button" style="width:120px" (click)="toggleInbox('Outbox')">Outbox</button>
   </div>
   <div *ngIf="!loading">
     <table mat-table [dataSource]="dataSource">

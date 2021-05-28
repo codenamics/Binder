@@ -66,16 +66,11 @@ export class RegisterComponent implements OnInit {
   }
   register() {
     this.accountService.register(this.registerForm.value).subscribe(
-      (res) => {
-    
-      },
-      (error) => {
-        
-      },()=>{
+      (res) => {},
+      (error) => {},
+      () => {
         this.router.navigateByUrl('/home/binds');
       }
-    
-      
     );
   }
 }

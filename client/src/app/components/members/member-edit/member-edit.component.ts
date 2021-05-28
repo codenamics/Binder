@@ -31,20 +31,19 @@ export class MemberEditComponent implements OnInit {
   ) {
     this.accountService.currentUser$
       .pipe(take(1))
-      .subscribe((user) => {this.user = user
-        
-      
+      .subscribe((user) => {
+        this.user = user
       });
   }
 
   ngOnInit(): void {
     this.loadMember();
   }
-  ngDoCheck(){
-    if(this.member?.photoUrl === this.member?.photoUrl){
-      if(this.member?.photoUrl === null){
+  ngDoCheck() {
+    if (this.member?.photoUrl === this.member?.photoUrl) {
+      if (this.member?.photoUrl === null) {
         this.photoUrl = './assets/user.png'
-      }else{
+      } else {
         this.photoUrl = this.member?.photoUrl
       }
     }
@@ -54,9 +53,9 @@ export class MemberEditComponent implements OnInit {
       .getMember(this.user.username)
       .subscribe((member) => {
         this.member = member
-        if(member?.photoUrl === null){
+        if (member?.photoUrl === null) {
           this.photoUrl = './assets/user.png'
-        }else{
+        } else {
           this.photoUrl = member.photoUrl
         }
       });
